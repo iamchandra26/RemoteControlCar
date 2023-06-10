@@ -1,0 +1,145 @@
+const int EnableL = 10;
+const int HighL = 8;
+const int LowL = 9;
+
+const int EnableR = 5;
+const int HighR = 6;
+const int LowR = 7;
+
+int data;
+
+void setup() {
+  pinMode (EnableL, OUTPUT);
+  pinMode (HighL, OUTPUT);
+  pinMode (LowL, OUTPUT);
+
+  pinMode (EnableR, OUTPUT);
+  pinMode (HighR, OUTPUT);
+  pinMode (LowR, OUTPUT);
+
+  Serial.begin (9600);
+
+}
+
+void Forward () {
+  digitalWrite (EnableL, 255);
+  digitalWrite (HighL, LOW);
+  digitalWrite (LowL, HIGH);
+
+  digitalWrite (EnableR, 255);
+  digitalWrite (HighR, HIGH);
+  digitalWrite (LowR, LOW);
+}
+
+void Backward () {
+  digitalWrite (EnableL, 255);
+  digitalWrite (HighL, HIGH);
+  digitalWrite (LowL, LOW);
+
+  digitalWrite (EnableR, 255);
+  digitalWrite (HighR, LOW);
+  digitalWrite (LowR, HIGH);
+}
+
+void Stop () {
+  digitalWrite (EnableL, 0);
+  digitalWrite (HighL, HIGH);
+  digitalWrite (LowL, LOW);
+
+  digitalWrite (EnableR, 0);
+  digitalWrite (HighR, LOW);
+  digitalWrite (LowR, HIGH);
+}
+
+void Left1 () {
+  analogWrite (EnableL, 130);
+  digitalWrite (HighL, LOW);
+  digitalWrite (LowL, HIGH);
+
+  analogWrite (EnableR, 255);
+  digitalWrite (HighR, HIGH);
+  digitalWrite (LowR, LOW);
+}
+
+void Left2 () {
+  analogWrite (EnableL, 90);
+  digitalWrite (HighL, LOW);
+  digitalWrite (LowL, HIGH);
+
+  analogWrite (EnableR, 255);
+  digitalWrite (HighR, HIGH);
+  digitalWrite (LowR, LOW);
+}
+
+void Left3 () {
+  analogWrite (EnableL, 40);
+  digitalWrite (HighL, LOW);
+  digitalWrite (LowL, HIGH);
+
+  analogWrite (EnableR, 255);
+  digitalWrite (HighR, HIGH);
+  digitalWrite (LowR, LOW);
+}
+
+void Right1 () {
+  analogWrite (EnableL, 255);
+  digitalWrite (HighL, HIGH);
+  digitalWrite (LowL, LOW);
+
+  analogWrite (EnableR, 130);
+  digitalWrite (HighR, LOW);
+  digitalWrite (LowR, HIGH);
+}
+
+void Right2 () {
+  analogWrite (EnableL, 255);
+  digitalWrite (HighL, HIGH);
+  digitalWrite (LowL, LOW);
+
+  analogWrite (EnableR, 90);
+  digitalWrite (HighR, LOW);
+  digitalWrite (LowR, HIGH);
+}
+
+void Right3 () {
+  analogWrite (EnableL, 255);
+  digitalWrite (HighL, HIGH);
+  digitalWrite (LowL, LOW);
+
+  analogWrite (EnableR, 40);
+  digitalWrite (HighR, LOW);
+  digitalWrite (LowR, HIGH);
+}
+
+void loop() {
+  if (Serial.available() > 0 ) {
+      data = Serial.read() - '0';
+    if (data==0) { 
+    Stop();  
+    }
+else if (data==1) {
+  Forward();
+    }
+  else if (data==2) {
+  Left1();
+    }
+    else if (data==3) {
+  Left2();
+    }
+    else if (data==4) {
+  Left3();
+    }
+    else if (data==5) {
+  Right1();
+    }
+    else if (data==6) {
+  Right2();
+    }
+    else if (data==7) {
+  Right3();
+    }
+else if (data==8) {
+  Backward();
+    }        
+ }
+}
